@@ -17,6 +17,15 @@ use App\Http\Controllers\TicketController;
 
 Route::group(['prefix' => 'tickets'], function () {
     Route::get('/index', [TicketController::class, 'index'])->name('admin.tickets.index');
-    Route::get('/ajax_index',[TicketController::class, 'ajaxIndex'])->name('ajax.tickets.index');
+    Route::get('/filter', [TicketController::class,'filter'])->name('tickets.filter');
+    Route::get('/add', [TicketController::class,'add'])->name('add.NewTicket');
+    Route::post('/store', [TicketController::class,'store'])->name('store.NewTicket');
+    Route::get('/view/{id}', [TicketController::class,'view'])->name('ticket.view');
+    Route::get('/edit/{id}', [TicketController::class,'edit'])->name('ticket.edit');
+    Route::post('/update/{id}', [TicketController::class,'update'])->name('ticket.update');
+
+
+
+
 
 });

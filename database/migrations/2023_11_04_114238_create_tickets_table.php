@@ -8,27 +8,36 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
     public function up()
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('ticketId')->unique();
-            $table->integer('status');
-            $table->string('companyName');
-            $table->string('topic');
+            $table->integer('ticket_code')->unique();
+            $table->integer('user_code')->unique();
+            $table->string('user_name');
+            $table->string('status');
             $table->string('type');
-            $table->string('userName');
-            $table->string('sendTo');
-            $table->timestamps();
+            $table->string('importance_level');
+            $table->string('customer_name');
+            $table->string('phone_number');
+            $table->string('email');
+            $table->string('directed_to');
+            $table->string('complaint_subject');
+            $table->text('complaint_description');
+            $table->date('created_at');
+            $table->date('updated_at')->nullable();
         });
     }
-    
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('tickets');
     }
