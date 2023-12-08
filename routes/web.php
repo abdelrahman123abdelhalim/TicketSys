@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +24,9 @@ Route::group(['prefix' => 'tickets'], function () {
     Route::get('/view/{id}', [TicketController::class,'view'])->name('ticket.view');
     Route::get('/edit/{id}', [TicketController::class,'edit'])->name('ticket.edit');
     Route::post('/update/{id}', [TicketController::class,'update'])->name('ticket.update');
+});
 
-
-
-
-
+Route::middleware('guest')->group(function () {
+    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register_form');
+    Route::post('register', [RegisterController::class, 'register'])->name('register');
 });
