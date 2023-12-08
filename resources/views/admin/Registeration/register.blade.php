@@ -8,7 +8,10 @@
 
 @section('content')
 <div class="register-box">
-	<h3>تسجيل عضو جديد</h3>
+	<h3 style="text-align: center;">
+		<img src="{{ asset('assets/images/hail.JPG') }}" alt="دخول"
+			style="display: block; margin: 0 auto; max-width: 200px; height: auto;">
+	</h3>
 
 	<form action="{{ route('register') }}" method="post" enctype="multipart/form-data">
 		@csrf
@@ -55,6 +58,14 @@
 		</div>
 
 		<div class="form-group">
+			<label for="user_type">نوع المستخدم</label>
+			<select class="form-control" id="user_type" name="user_type" dir="rtl">
+				<option value="1">عميل</option>
+				<option value="2">فريق العمل</option>
+			</select>
+		</div>
+
+		<div class="form-group">
 			<h5><label for="image">صورة الملف الشخصي</label></h5>
 			<input type="file" class="form-control" id="image" name="image">
 			@error('image')
@@ -62,7 +73,7 @@
 			@enderror
 		</div>
 
-		<button type="submit" class="btn btn-success btn-block">تسجيل</button>
+		<button type="submit" class="btn btn-primary btn-block">تسجيل</button>
 	</form>
 </div>
 @endsection

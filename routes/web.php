@@ -15,18 +15,26 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'tickets'], function () {
+        Route::get('/index', [TicketController::class, 'index'])->name('admin.tickets.index');
+        Route::get('/filter', [TicketController::class,'filter'])->name('tickets.filter');
+        Route::get('/add', [TicketController::class,'add'])->name('add.NewTicket');
+        Route::post('/store', [TicketController::class,'store'])->name('store.NewTicket');
+        Route::get('/view/{id}', [TicketController::class,'view'])->name('ticket.view');
+        Route::get('/edit/{id}', [TicketController::class,'edit'])->name('ticket.edit');
+        Route::post('/update/{id}', [TicketController::class,'update'])->name('ticket.update');
+    });
+    
+    Route::post('logout', [RegisterController::class, 'logout'])->name('admin.logout');
 
-Route::group(['prefix' => 'tickets'], function () {
-    Route::get('/index', [TicketController::class, 'index'])->name('admin.tickets.index');
-    Route::get('/filter', [TicketController::class,'filter'])->name('tickets.filter');
-    Route::get('/add', [TicketController::class,'add'])->name('add.NewTicket');
-    Route::post('/store', [TicketController::class,'store'])->name('store.NewTicket');
-    Route::get('/view/{id}', [TicketController::class,'view'])->name('ticket.view');
-    Route::get('/edit/{id}', [TicketController::class,'edit'])->name('ticket.edit');
-    Route::post('/update/{id}', [TicketController::class,'update'])->name('ticket.update');
 });
 
+
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register_form');
-    Route::post('register', [RegisterController::class, 'register'])->name('register');
+        Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register_form');
+        Route::post('register', [RegisterController::class, 'register'])->name('register');
+
+        Route::get('login', [RegisterController::class, 'showLoginForm'])->name('login_form');
+        Route::post('login', [RegisterController::class, 'login'])->name('login');
 });

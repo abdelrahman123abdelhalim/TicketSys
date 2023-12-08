@@ -8,6 +8,14 @@
   		<li class="nav-item d-none d-sm-inline-block">
   			<a href="{{route('admin.tickets.index')}}" class="nav-link">الرئيسية</a>
   		</li>
+  		<li class="nav-item d-none d-sm-inline-block">
+  			<form action="{{ route('admin.logout') }}" method="POST">
+  				@csrf
+  				<button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">
+  					تسجيل الخروج
+  				</button>
+  			</form>
+  		</li>
   	</ul>
 
   </nav>

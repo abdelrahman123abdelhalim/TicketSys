@@ -13,14 +13,15 @@ class RegisterRequest extends FormRequest
 
     public function rules()
     {
-    return [
-    'name' => 'required|string|max:255',
-    'company_name' => 'required|string|max:255',
-    'email' => 'required|email|unique:users,email',
-    'mobile' => 'required|string|max:20',
-    'password' => 'required|string|min:8|confirmed',
-    'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ];
+        return [
+            'name' => 'required|string|max:255',
+            'company_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'mobile' => 'required|string|max:20',
+            'password' => 'required|string|min:8|confirmed',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'user_type' =>'required|in:1,2'
+        ];
     }
 
     public function messages(){
@@ -49,6 +50,11 @@ class RegisterRequest extends FormRequest
             'image.image' => 'يجب أن يكون الملف ملف صورة',
             'image.mimes' => 'يجب أن يكون الملف من نوع: jpeg, png, jpg, gif',
             'image.max' => 'حجم الصورة يجب أن لا يتجاوز 2MB',
+
+            'user_type.required' => 'حقل نوع المستخدم مطلوب',
+            'user_type.in' => 'حقل نوع المستخدم عميل او من ضمن فريق العمل',
+
+
         ];
          
     }

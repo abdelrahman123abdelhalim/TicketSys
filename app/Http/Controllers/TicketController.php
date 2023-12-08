@@ -10,6 +10,7 @@ use App\Http\Requests\TicketRequest;
 use Str;
 use Carbon\Carbon;
 use App\Http\Requests\UpdateTicketRequest;
+use Illuminate\Support\Facades\Auth;
 
 class TicketController extends Controller
 {
@@ -70,12 +71,11 @@ class TicketController extends Controller
     {
         $lastTicket = Ticket::latest('ticket_code')->first();
         $lastTicketCode = $lastTicket ? $lastTicket->ticket_code : 0;
-        $userCode = mt_rand(100, 999);
 
         $ticket = new Ticket([
             'ticket_code' => $lastTicketCode + 1,
             'user_name' => $request->input('user_name'),
-            'user_code' => $userCode,
+            'user_code' =>Auth::user()->user_code,
             'status' => 1,
             'type' => $request->input('type'),
             'importance_level' => $request->input('importance_level'),
@@ -98,9 +98,9 @@ class TicketController extends Controller
         ]);
     }
 
-    public function view($id)
+    public function view($userCode)
     {
-        $ticket = Ticket::find($id);
+        $ticket = Ticket::where('user_code',$userCode)->first();
 
         if (!$ticket) {
             return redirect()->route('admin.tickets.index')->with([

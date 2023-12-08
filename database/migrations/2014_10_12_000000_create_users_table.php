@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('status')->default(true);
             $table->string('image')->nullable();
-            $table->enum('user_type', ['client', 'work_team'])->default('client');
+            $table->enum('user_type', [1, 2])->default(1); // 2 عميل 1&&  فريق عمل
+            $table->integer('user_code')->unique();
             $table->rememberToken();
             $table->timestamps();
         });
